@@ -21,7 +21,7 @@ xp = ceil(-xp/2):1:ceil(xp/2);
 disp(xp);
 
 % Display the Sinogram
-subplot(311);
+subplot(221);
 imagesc(theta, xp, projections);
 title('Sinogram')
 colormap(gray);
@@ -69,11 +69,16 @@ for angle=1:1:thetaMax
 
 end
 
-subplot(312);
+subplot(222);
 imagesc(theta, xp, newProjections);
 title('filtered Sinogram');
 colormap(gray);
-%plot(-1/(2*T):1/(N_*T):(N_/2 -1)/(N_*T), abs(-1/(2*T):1/(N_*T):(N_/2 -1)/(N_*T)));
+
+
+subplot(223);
+plot(-1/(2*T):1/(N_*T):(N_/2 -1)/(N_*T), abs(-1/(2*T):1/(N_*T):(N_/2 -1)/(N_*T)));
+title('rhoFilter');
+
 
 P = size(image,1);
 img = zeros(P);
@@ -85,21 +90,23 @@ img = zeros(P);
 y = flipud(y);
 
 
+% Looping over the number of projections or number of angles.
 for i=1:length(theta)
     gf1 = newProjections(:,i);
     % Applying the Transformation using x, y and angle theta. This step
     % calculates the 
     t = round((x*cos(theta(i)*(pi/180))) + y*sin(theta(i)*(pi/180)));
     
-    % Fill the output image the backward projection of each e
+    % Fill the output image the backward projection of each angle
     img = img + gf1(t + ceil(N/2));
 end
 
+% Normalize the output image after all the iterations.
 img = pi * img/length(theta);
 
 
 
-subplot(313);
+subplot(224);
 imagesc(img);
 title('Reconstructed Image');
 colormap(gray);
