@@ -46,7 +46,7 @@ count = fwrite(fid,arr,'float');
 
 if (count < 3*ll)
 	disp('Error writing file');
-end;
+end
 
 fclose(fid);
 

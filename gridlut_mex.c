@@ -8,8 +8,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
 
 {
-double *kx;		/* k-space trajectory x locations.	*/
-double *ky;		/* k-space trajectory y locations.	*/
+double *kx;		    /* k-space trajectory x locations.	*/
+double *ky;		    /* k-space trajectory y locations.	*/
 double *s_real;		/* real-part of data samples.	*/
 double *s_imag;		/* imaginary-part of data samples. */
 int nsamples;		/* number of data samples (or trajectory points) */
