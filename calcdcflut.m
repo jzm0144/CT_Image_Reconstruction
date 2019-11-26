@@ -47,9 +47,4 @@ if (nargin < 4)
 end;
 
 % --------- Call Mex Function for this ---------
-
-
 dcf = calcdcflut_mex(ktraj,gridsize,convwidth,kerneltable);
-
-
-
