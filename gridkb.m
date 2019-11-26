@@ -42,16 +42,16 @@ else % Read k-space file.
 	[ktraj,dcf] = readkspace(varargin{1});
 	ksamps = varargin{2};
 	otherargs = {varargin{3:end}};
-end;
+end
 
 % 	---- Check lengths ------
 
 if (max(size(ktraj)) ~= max(size(dcf)))
 	disp('Warning:  K-space trajectory and DCFs have different length.');
-end;
+end
 if (max(size(ktraj(:))) ~= max(size(ksamps(:))))
 	disp('Warning:  K-space trajectory and signal data have different length.');
-end;
+end
 
 
 
@@ -63,14 +63,14 @@ if (length(otherargs)>=1)		% -- Get gridsize.
 else
 	disp('Warning:  No gridsize passed - using gridsize=256');
 	gridsize = 256;
-end;
+end
 
 if (length(otherargs)>=2)		% -- Get kernel width.
 	kwidth = otherargs{2}; 
 else
 	disp('Warning:  No kernel width passed - using width=1.5');
 	kwidth = 1.5;
-end;
+end
 
 if (length(otherargs)>=3)		% -- Get overgridfactor
 	overgridfactor = otherargs{3};
@@ -80,11 +80,7 @@ else
 	disp('		the convolution kernel, so if you are actually');
 	disp('		using these images, you should specifiy this.');
 	overgridfactor = 1.5;
-end;
-
-
-
-
+end
 
 % ========== Calculate Kaiser-Bessel Kernel for given parameters =========
 [kerneltable,u] = calckbkernel(kwidth,overgridfactor);

@@ -66,7 +66,9 @@ end
 % title('rhoFilter');
 
 
-P = 362;
+P = 2*floor(size(projections, 1) / (2*(sqrt(2))));%362;
+disp(P);
+
 img = zeros(P);
 
 
