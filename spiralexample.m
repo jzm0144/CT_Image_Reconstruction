@@ -1,3 +1,5 @@
+clc; clear;
+
 load spiralexampledata
 %load project_1_new_data.mat
 
