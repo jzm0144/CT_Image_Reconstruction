@@ -21,7 +21,7 @@ xp = ceil(-xp/2):1:ceil(xp/2);
 disp(xp);
 
 % Display the Sinogram
-subplot(221);
+subplot(411);
 imagesc(theta, xp, projections);
 title('Sinogram')
 colormap(gray);
@@ -69,13 +69,13 @@ for angle=1:1:thetaMax
 
 end
 
-subplot(222);
+subplot(412);
 imagesc(theta, xp, newProjections);
 title('filtered Sinogram');
 colormap(gray);
 
 
-subplot(223);
+subplot(413);
 plot(-1/(2*T):1/(N_*T):(N_/2 -1)/(N_*T), abs(-1/(2*T):1/(N_*T):(N_/2 -1)/(N_*T)));
 title('rhoFilter');
 
@@ -106,7 +106,7 @@ img = pi * img/length(theta);
 
 
 
-subplot(224);
+subplot(414);
 imagesc(img);
 title('Reconstructed Image');
 colormap(gray);

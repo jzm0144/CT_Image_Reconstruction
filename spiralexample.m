@@ -1,11 +1,13 @@
+
+
 clc; clear;
 
 load spiralexampledata
-%load project_1_new_data.mat
 
 plot(kspacelocations);
 
-[gdat] = gridkb(kspacelocations, spiraldata, dcf, 256, 1.5, 2);
+
+[gdat] = gridkb(kspacelocations, spiraldata, real(dcf), 256, 1.5, 2);
 
 im = fftshift(fft2(fftshift(gdat)));
 
@@ -22,3 +24,4 @@ image(uint8(im));
 colormap(cmap);
 
 axis square;
+

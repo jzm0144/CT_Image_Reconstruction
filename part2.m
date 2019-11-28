@@ -1,41 +1,37 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Computed Imaging Systems - ELEC- 6810 %
-% Programming Project                   %
-% Author: Janzaib Masood                %
-% Auburn University MRI Research Center %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-clear; clc;
-%%%%%%%%%%%%%%%%%%%%%%%%%%%---- Sinogram ----%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Load the input kspace projections and angles
-% Radon Transform is not required because we already have the projections.
-load project_1_new_data.mat;
-projections = kspace;
-numProjections = size(projections,2);
+clc; clear; load project_1_new_data.mat;
+
+ksamps = kspace;
+numProjections = size(ksamps, 2);
+readout_points = size(ksamps, 1);
+
+ktraj = getRadialTraj(readout_points , numProjections);
 
 
-%%%%%%%%%%%%%%%%%%%%---- Filtered Backprojection ----%%%%%%%%%%%%%%%%%%%%%
-N = size(projections, 1); % Number of elements in a projection
-N_ = 2*(2^nextpow2(N)); % Number of elements in a zero padded projection
+figure(1); colormap('gray'); plot(reshape(ktraj, 1, []));
 
-disp(N_);
+dcf = calcdcflut(ktraj)';
 
-T = 180/(numProjections); 
+dcf = dcf/max(dcf);
 
-newProjections = zeros(size(projections));
 
-% Loop over the angles from 1 to thetaMax
-for index=1:1:numProjections
-    angle = theta(index);
-    
-    % Converting the Kspace Projections to Spatial Domain with an inverse
-    % fourier transform.
-    G = projections(:, index);
-    g = abs(fftshift(ifft(G)));
-    newProjections(:, index) = g;
+kmax = max(abs(ktraj));
+if (kmax > 0.5)
+	disp('Warning:  Maximum k-space > 0.5.  ');
+	disp('		Conventionally k-space files should not exceed 0.5');
+	disp(' 		This may result in problems later.');
+	disp(' ');
+	q = input('Normalize k-space to 0.5 max magnitude? (y/n)','s');
+	if (q(1)=='y')
+		disp('Normalizing...');
+		kraj = 0.48*kraj/kmax;
+	end;
+end;
 
-end
+[gdat] = gridkb(reshape(ktraj, 1, []), ksamps, dcf, 362, 1.5, 2);
 
-P = 362;
-img = zeros(P);
+im = fftshift(fft2(fftshift(gdat)));
 
-[gdat] = gridkb(kspacelocations, spiraldata, dcf, 256, 1.5, 2);
+figure(2);
+cmap = [0:255].'*[1 1 1] / 256;
+colormap(cmap);
+imagesc(abs(im)/5120); title('Gridding');

@@ -99,5 +99,5 @@ end
 img = pi * img/length(theta);
 figure(2);
 imagesc(abs(fliplr(img)));
-title('Reconstructed Image');
+title('Filtered Backprojection');
 colormap(gray);
