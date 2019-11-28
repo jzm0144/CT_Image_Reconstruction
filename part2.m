@@ -27,11 +27,12 @@ if (kmax > 0.5)
 	end;
 end;
 
-[gdat] = gridkb(reshape(ktraj, 1, []), ksamps, dcf, 362, 1.5, 2);
+[gdat] = gridkb(reshape(ktraj, 1, []), ksamps, dcf, 362, 3, 2);
 
 im = fftshift(fft2(fftshift(gdat)));
 
-figure(2);
+ax = figure;
 cmap = [0:255].'*[1 1 1] / 256;
 colormap(cmap);
 imagesc(abs(im)/5120); title('Gridding');
+saveas(ax, 'Gridding_w3.png');

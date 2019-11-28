@@ -97,8 +97,7 @@ end
 % required because we summed for all the projections to build the image. So
 % we divide by the number of thetas.
 img = pi * img/length(theta);
-ax = figure;
-imagesc(abs(fliplr(img)));
-title('Filtered Backprojection');
+ax = figure(2);
+ax.imagesc(abs(fliplr(img)));
+atitle('Filtered Backprojection');
 colormap(gray);
-saveas(ax, 'FBP.png');
