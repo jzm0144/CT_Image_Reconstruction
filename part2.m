@@ -24,10 +24,10 @@ if (kmax > 0.5)
 	if (q(1)=='y')
 		disp('Normalizing...');
 		kraj = 0.48*kraj/kmax;
-	end;
-end;
+    end
+end
 
-[gdat] = gridkb(reshape(ktraj, 1, []), ksamps, dcf, 362, 3, 2);
+[gdat] = gridkb(reshape(ktraj, 1, [])/1.2, ksamps, dcf, 362, 3, 2);
 
 im = fftshift(fft2(fftshift(gdat)));
 
