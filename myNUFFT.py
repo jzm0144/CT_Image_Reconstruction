@@ -8,6 +8,24 @@ import numpy as np
 import ipdb as ipdb
 import matplotlib.pyplot as plt
 
+
+spoke_range = (np.arange(0, 512) - 256.0 )* np.pi/ 256  # normalized between -pi and pi
+M = 512*360
+om = np.empty((M,2), dtype = np.float32)
+
+
+for angle in range(0, 360):
+   radian = angle * 2 * np.pi/ 360.0
+   spoke_x =  spoke_range * np.cos(radian)
+   spoke_y =  spoke_range * np.sin(radian)
+   om[512*angle : 512*(angle + 1) ,0] = spoke_x
+   om[512*angle : 512*(angle + 1) ,1] = spoke_y
+
+
+plt.plot(om[:,0], om[:,1],'.')
+plt.show()
+
+'''
 data = loadmat('project_1_new_data.mat')
 kspace = data['kspace']
 theta = data['theta']
@@ -29,3 +47,5 @@ myNufft.plan(om = ktraj,
              Nd = (gridSize, gridSize),
              Kd = (numReadouts, numReadouts),
              Jd = (6,6))
+
+'''
